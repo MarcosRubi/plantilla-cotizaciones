@@ -1,14 +1,19 @@
-import SelectInput from "./utils/SelectInput";
-
-import { DatePicker, Checkbox, Col, InputNumber, Switch, Space } from "antd";
+import { DatePicker, Checkbox, Col, InputNumber, Switch, Space, Select } from "antd";
 
 import { useState } from "react";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 
+import aviancaLogo from "./assets/avianca.svg"
+import americanAirlinesLogo from "./assets/american-airlines.svg"
+import deltaLogo from "./assets/delta.svg"
+import volarisLogo from "./assets/volaris.svg"
+import united from "./assets/united.svg"
+
 function App() {
   const [dates, setDates] = useState([]);
   const [date, setDate] = useState([]);
+  const [airline, setAirline] = useState('av');
   const [optionsBag, setOptionsBag] = useState([]);
   const [optionsRestrictions, setOptionsRestrictions] = useState([]);
   const [countBag, setCountBag] = useState(1);
@@ -21,17 +26,35 @@ function App() {
 
   return (
     <>
-      <div className="grid items-center min-h-screen mx-4">
-        <div className="w-full max-w-[500px] p-4 border rounded-lg shadow sm:p-6 md:p-8 bg-gray-800 border-gray-700">
+      <div className="flex flex-col  lg:flex-row m-4 gap-20 justify-center items-center ">
+        <div className="lg:w-[500px] p-4 border rounded-lg shadow sm:p-6 md:p-8 bg-gray-800 border-gray-700">
           <form>
-            <SelectInput
-              title={"Aerolínea"}
-              opciones={[
-                "Avianca",
-                "American Airlines",
-                "Delta",
-                "Volarís",
-                "United",
+            <Select
+              defaultValue="Avianca"
+              className="block"
+              size="large"
+              onChange={(value) => setAirline(value)}
+              options={[
+                {
+                  value: 'av',
+                  label: 'Avianca',
+                },
+                {
+                  value: 'de',
+                  label: 'Delta',
+                },
+                {
+                  value: 'vo',
+                  label: 'Volarís',
+                },
+                {
+                  value: 'aa',
+                  label: 'American Airlines',
+                },
+                {
+                  value: 'un',
+                  label: 'United Airlines',
+                },
               ]}
             />
 
@@ -310,6 +333,19 @@ function App() {
               Copiar imagen
             </button>
           </form>
+
+        </div>
+
+        {/*************************************
+                  DISEÑO DE IMAGEN
+        ***************************************/}
+        <div className="border-2 relative bg-black w-[600px] h-[800px] bg-[url('https://i.ibb.co/5cJXd17/Dise-o-cotizaciones.png')] bg-no-repeat">
+          {airline === 'av' && <img src={aviancaLogo} className="w-[7rem] absolute top-[12.75rem] left-[2.2rem] rotate-[45deg]" />}
+          {airline === 'de' && <img src={deltaLogo} className="w-[7rem] absolute top-[12.75rem] left-[2rem] rotate-[47deg]" />}
+          {airline === 'aa' && <img src={americanAirlinesLogo} className="w-[10rem] absolute top-[10.25rem] left-[.8rem] rotate-[46deg]" />}
+          {airline === 'vo' && <img src={volarisLogo} className="w-[10rem] absolute top-[10rem] left-[1rem] rotate-[47deg]" />}
+          {airline === 'un' && <img src={united} className="w-[7rem] absolute top-[12.75rem] left-[2rem] rotate-[45deg]" />}
+
         </div>
       </div>
     </>
