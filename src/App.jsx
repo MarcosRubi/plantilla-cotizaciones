@@ -12,18 +12,8 @@ import { useState } from "react";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 
-import aviancaLogo from "./assets/avianca.svg";
-import americanAirlinesLogo from "./assets/american-airlines.svg";
-import deltaLogo from "./assets/delta.svg";
-import volarisLogo from "./assets/volaris.svg";
-import united from "./assets/united.svg";
-import frontier from "./assets/frontier.svg";
-import iberia from "./assets/iberia.svg";
-import iberojet from "./assets/iberojet.svg";
-import jetblue from "./assets/jetblue.svg";
-import southwest from "./assets/southwest.svg";
-import spirit from "./assets/spirit.svg";
-import bgCotizacion from "./assets/bg-cotizacion.png";
+import ViajeSencillo from "./components/ViajeSencillo";
+import ViajeRedondo from "./components/ViajeRedondo";
 
 function App() {
   const [dates, setDates] = useState([]);
@@ -34,6 +24,8 @@ function App() {
   const [countBag, setCountBag] = useState(1);
   const [isCheckedEasyTrip, setIsCheckedEasyTrip] = useState(true);
   const [isCheckedAdult, setIsCheckedAdult] = useState(true);
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
   const [isCheckedChild, setIsCheckedChild] = useState(false);
 
   function convertToImageAndCopyToClipboard() {
@@ -178,6 +170,7 @@ function App() {
                   id="floating_first_name"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  onChange={(e) => setOrigin(e.target.value.toUpperCase())}
                 />
                 <label
                   htmlFor="floating_first_name"
@@ -193,6 +186,7 @@ function App() {
                   id="floating_last_name"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
                 />
                 <label
                   htmlFor="floating_last_name"
@@ -332,16 +326,16 @@ function App() {
                       {optionsBag.some((option) =>
                         option.includes("Maleta de carga")
                       ) && (
-                        <InputNumber
-                          size="medium"
-                          min={1}
-                          max={10}
-                          bordered={false}
-                          className="bg-white hover:bg-white"
-                          defaultValue={countBag}
-                          onChange={(countBag) => setCountBag(countBag)}
-                        />
-                      )}
+                          <InputNumber
+                            size="medium"
+                            min={1}
+                            max={10}
+                            bordered={false}
+                            className="bg-white hover:bg-white"
+                            defaultValue={countBag}
+                            onChange={(countBag) => setCountBag(countBag)}
+                          />
+                        )}
                     </Col>
                   </Space>
                 </Space>
@@ -400,7 +394,7 @@ function App() {
             <button
               type="button"
               onClick={() => {
-                convertToImageAndCopyToClipboard(bgCotizacion);
+                convertToImageAndCopyToClipboard(isCheckedEasyTrip ? './assets/bg-cotizacion.png' : './assets/bg-cotizacion-sencilla.png');
               }}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
@@ -412,80 +406,11 @@ function App() {
         {/*************************************
                   DISEÑO DE IMAGEN
         ***************************************/}
-        <div
-          className="border-2 relative bg-black w-[600px] h-[800px]  bg-no-repeat"
-          id="image"
-          style={{
-            backgroundImage: `url(${bgCotizacion})`,
-          }}
-        >
-          {airline === "av" && (
-            <img
-              src={aviancaLogo}
-              className="w-[7rem] absolute top-[12.75rem] left-[2.2rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "de" && (
-            <img
-              src={deltaLogo}
-              className="w-[7rem] absolute top-[12.75rem] left-[2rem] rotate-[47deg]"
-            />
-          )}
-          {airline === "aa" && (
-            <img
-              src={americanAirlinesLogo}
-              className="w-[10rem] absolute top-[10.25rem] left-[.8rem] rotate-[46deg]"
-            />
-          )}
-          {airline === "vo" && (
-            <img
-              src={volarisLogo}
-              className="w-[10rem] absolute top-[10rem] left-[1rem] rotate-[47deg]"
-            />
-          )}
-          {airline === "un" && (
-            <img
-              src={united}
-              className="w-[7rem] absolute top-[12.75rem] left-[2rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "fr" && (
-            <img
-              src={frontier}
-              className="w-[7rem] absolute top-[12.75rem] left-[2rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "ib" && (
-            <img
-              src={iberia}
-              className="w-[7rem] absolute top-[13rem] left-[2rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "ibj" && (
-            <img
-              src={iberojet}
-              className="w-[7rem] absolute top-[12rem] left-[2rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "jb" && (
-            <img
-              src={jetblue}
-              className="w-[5rem] absolute top-[12.75rem] left-[3.4rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "sw" && (
-            <img
-              src={southwest}
-              className="w-[7rem] absolute top-[12.75rem] left-[2rem] rotate-[45deg]"
-            />
-          )}
-          {airline === "sp" && (
-            <img
-              src={spirit}
-              className="w-[6rem] absolute top-[12.75rem] left-[2.5rem] rotate-[45deg]"
-            />
-          )}
-        </div>
+        {
+          isCheckedEasyTrip
+            ? <ViajeRedondo data={{ date, airline, optionsBag, optionsRestrictions, countBag, isCheckedAdult, isCheckedChild, origin, destination }} />
+            : <ViajeSencillo data={{ date, airline, optionsBag, optionsRestrictions, countBag, isCheckedAdult, isCheckedChild, origin, destination }} />
+        }
       </div>
     </>
   );
