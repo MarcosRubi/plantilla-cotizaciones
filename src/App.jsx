@@ -24,9 +24,13 @@ function App() {
   const [countBag, setCountBag] = useState(1);
   const [isCheckedEasyTrip, setIsCheckedEasyTrip] = useState(true);
   const [isCheckedAdult, setIsCheckedAdult] = useState(true);
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
   const [isCheckedChild, setIsCheckedChild] = useState(false);
+  const [departureTime, setDepartureTime] = useState("");
+  const [arrivalTime, setArrivalTime] = useState("");
+  const [priceAdult, setPriceAdult] = useState("");
+  const [priceChild, setPriceChild] = useState("");
 
   function convertToImageAndCopyToClipboard() {
     const contentDiv = document.getElementById("image");
@@ -58,7 +62,7 @@ function App() {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-20 m-4 lg:flex-row ">
-        <div className="lg:w-[500px] p-4 border rounded-lg shadow sm:p-6 md:p-8 bg-gray-800 border-gray-700">
+        <div className="p-4 bg-gray-800 border border-gray-700 rounded-lg shadow sm:p-6 md:p-8">
           <form method="post">
             <Select
               defaultValue="Avianca"
@@ -171,6 +175,7 @@ function App() {
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   onChange={(e) => setOrigin(e.target.value.toUpperCase())}
+                  value={origin}
                 />
                 <label
                   htmlFor="floating_first_name"
@@ -187,6 +192,7 @@ function App() {
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   onChange={(e) => setDestination(e.target.value.toUpperCase())}
+                  value={destination}
                 />
                 <label
                   htmlFor="floating_last_name"
@@ -205,6 +211,10 @@ function App() {
                   id="floating_first_name"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  onChange={(e) =>
+                    setDepartureTime(e.target.value.toUpperCase())
+                  }
+                  value={departureTime}
                 />
                 <label
                   htmlFor="floating_first_name"
@@ -220,6 +230,8 @@ function App() {
                   id="floating_last_name"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
+                  onChange={(e) => setArrivalTime(e.target.value.toUpperCase())}
+                  value={arrivalTime}
                 />
                 <label
                   htmlFor="floating_last_name"
@@ -250,6 +262,8 @@ function App() {
                     id="floating_company"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
+                    onChange={(e) => setPriceAdult(e.target.value)}
+                    value={priceAdult}
                   />
                   <label
                     htmlFor="floating_company"
@@ -280,6 +294,8 @@ function App() {
                     id="floating_company"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
+                    onChange={(e) => setPriceChild(e.target.value)}
+                    value={priceChild}
                   />
                   <label
                     htmlFor="floating_company"
@@ -291,110 +307,114 @@ function App() {
               )}
             </div>
 
-            <div className="relative z-0 w-full mb-6 group">
-              <h3 className="mt-4 mb-2 text-2xl dark:text-white">Equipaje</h3>
-              <Checkbox.Group
-                style={{
-                  width: "100%",
-                }}
-                onChange={(options) => setOptionsBag(options)}
-              >
-                <Space
-                  direction="vertical"
+            <div className="grid md:grid-cols-2 md:gap-6">
+              <div className="relative z-0 w-full mb-6 group">
+                <h3 className="mt-4 mb-2 text-2xl dark:text-white">Equipaje</h3>
+                <Checkbox.Group
                   style={{
                     width: "100%",
                   }}
+                  onChange={(options) => setOptionsBag(options)}
                 >
-                  <Col>
-                    <Checkbox value="Objeto Personal" className="text-white">
-                      Objeto Personal
-                    </Checkbox>
-                  </Col>
-                  <Col>
-                    <Checkbox
-                      value="Maleta de mano"
-                      className="my-2 text-white"
-                    >
-                      Maleta de mano
-                    </Checkbox>
-                  </Col>
-                  <Space>
-                    <Col className="flex items-center min-w-full">
-                      <Checkbox value="Maleta de carga" className="text-white">
-                        Maleta de carga
+                  <Space
+                    direction="vertical"
+                    style={{
+                      width: "100%",
+                    }}
+                  >
+                    <Col>
+                      <Checkbox
+                        value="Maleta de mano"
+                        className="my-2 text-white"
+                      >
+                        Maleta de mano
                       </Checkbox>
-                      {optionsBag.some((option) =>
-                        option.includes("Maleta de carga")
-                      ) && (
+                    </Col>
+                    <Space>
+                      <Col className="flex items-center min-w-full">
+                        <Checkbox
+                          value="Maleta de carga"
+                          className="text-white"
+                        >
+                          Maleta de carga
+                        </Checkbox>
+                        {optionsBag.some((option) =>
+                          option.includes("Maleta de carga")
+                        ) && (
                           <InputNumber
                             size="medium"
                             min={1}
-                            max={10}
+                            max={9}
                             bordered={false}
                             className="bg-white hover:bg-white"
                             defaultValue={countBag}
                             onChange={(countBag) => setCountBag(countBag)}
                           />
                         )}
-                    </Col>
+                      </Col>
+                    </Space>
                   </Space>
-                </Space>
-              </Checkbox.Group>
-            </div>
+                </Checkbox.Group>
+              </div>
 
-            <div className="relative z-0 w-full mb-6 group">
-              <h3 className="mt-4 mb-2 text-2xl dark:text-white">
-                Restricciones
-              </h3>
-              <Checkbox.Group
-                style={{
-                  width: "100%",
-                }}
-                onChange={(options) => setOptionsRestrictions(options)}
-              >
-                <Space
-                  direction="vertical"
+              <div className="relative z-0 w-full mb-6 group">
+                <h3 className="mt-4 mb-2 text-2xl dark:text-white">
+                  Restricciones
+                </h3>
+                <Checkbox.Group
                   style={{
                     width: "100%",
                   }}
+                  onChange={(options) => setOptionsRestrictions(options)}
                 >
-                  <Col>
-                    <Checkbox value="No reembolsable" className="text-white">
-                      No reembolsable
-                    </Checkbox>
-                  </Col>
-                  <Col>
-                    <Checkbox
-                      value="Cambios solo antes del vuelo"
-                      className="my-2 text-white"
-                    >
-                      Cambios solo antes del vuelo
-                    </Checkbox>
-                  </Col>
-                  <Col>
-                    <Checkbox
-                      value="Sin cambios de fecha"
-                      className="mb-2 text-white"
-                    >
-                      Sin cambios de fecha
-                    </Checkbox>
-                  </Col>
-                  <Col>
-                    <Checkbox
-                      value="No transferible"
-                      className="mb-2 text-white"
-                    >
-                      No transferible
-                    </Checkbox>
-                  </Col>
-                </Space>
-              </Checkbox.Group>
+                  <Space
+                    direction="vertical"
+                    style={{
+                      width: "100%",
+                    }}
+                  >
+                    <Col>
+                      <Checkbox value="No reembolsable" className="text-white">
+                        No reembolsable
+                      </Checkbox>
+                    </Col>
+                    <Col>
+                      <Checkbox
+                        value="Cambios solo antes del vuelo"
+                        className="my-2 text-white"
+                      >
+                        Cambios solo antes del vuelo
+                      </Checkbox>
+                    </Col>
+                    <Col>
+                      <Checkbox
+                        value="Sin cambios de fecha"
+                        className="mb-2 text-white"
+                      >
+                        Sin cambios de fecha
+                      </Checkbox>
+                    </Col>
+                    <Col>
+                      <Checkbox
+                        value="No transferible"
+                        className="mb-2 text-white"
+                      >
+                        No transferible
+                      </Checkbox>
+                    </Col>
+                  </Space>
+                </Checkbox.Group>
+              </div>
             </div>
 
             <button
               type="button"
               onClick={() => {
-                convertToImageAndCopyToClipboard(isCheckedEasyTrip ? './assets/bg-cotizacion.png' : './assets/bg-cotizacion-sencilla.png');
+                convertToImageAndCopyToClipboard(
+                  isCheckedEasyTrip
+                    ? "./assets/bg-cotizacion.png"
+                    : "./assets/bg-cotizacion-sencilla.png"
+                );
               }}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
@@ -406,11 +426,43 @@ function App() {
         {/*************************************
                   DISEÑO DE IMAGEN
         ***************************************/}
-        {
-          isCheckedEasyTrip
-            ? <ViajeRedondo data={{ date, airline, optionsBag, optionsRestrictions, countBag, isCheckedAdult, isCheckedChild, origin, destination }} />
-            : <ViajeSencillo data={{ date, airline, optionsBag, optionsRestrictions, countBag, isCheckedAdult, isCheckedChild, origin, destination }} />
-        }
+        {isCheckedEasyTrip ? (
+          <ViajeRedondo
+            data={{
+              dates,
+              airline,
+              optionsBag,
+              optionsRestrictions,
+              countBag,
+              isCheckedAdult,
+              isCheckedChild,
+              origin,
+              destination,
+              departureTime,
+              arrivalTime,
+              priceAdult,
+              priceChild,
+            }}
+          />
+        ) : (
+          <ViajeSencillo
+            data={{
+              date,
+              airline,
+              optionsBag,
+              optionsRestrictions,
+              countBag,
+              isCheckedAdult,
+              isCheckedChild,
+              origin,
+              destination,
+              departureTime,
+              arrivalTime,
+              priceAdult,
+              priceChild,
+            }}
+          />
+        )}
       </div>
     </>
   );
